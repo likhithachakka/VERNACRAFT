@@ -61,6 +61,10 @@ export const Navbar: React.FC<NavbarProps> = ({
   }, []);
 
   useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [currentPath]);
+
+  useEffect(() => {
     async function loadBhashini() {
       try {
         const s = await ApiService.getBhashiniStatus();
@@ -94,6 +98,9 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   const selectedLangObj = getLanguage(currentLanguage);
+  const bhashiniLabel = bhashiniStatus?.configured
+    ? 'Securely configured'
+    : 'Demo fallback';
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
@@ -121,7 +128,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div
             id="vernacraft-brand-logo"
             onClick={() => onNavigate('/')}
-            className="flex items-center gap-2.5 cursor-pointer select-none"
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') onNavigate('/');
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label="Go to VERNACRAFT home"
+            className="flex cursor-pointer select-none items-center gap-2.5"
           >
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white flex items-center justify-center shadow-md shadow-emerald-500/20">
               <Sparkles className="w-5 h-5" />
@@ -142,7 +155,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav aria-label="Primary navigation" className="hidden items-center gap-1 lg:flex">
             <button
               id="nav-link-home"
               onClick={() => onNavigate('/')}
@@ -338,12 +351,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               type="button"
               onClick={() => setBhashiniModalOpen(true)}
               className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-emerald-300 bg-emerald-50 hover:bg-emerald-100 text-emerald-900 text-xs font-bold transition-all shadow-2xs cursor-pointer"
-              title="Government of India Bhashini AI (NLTM) - Click to verify API key & capabilities"
+              title="Bhashini translation integration status"
             >
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <Cpu className="w-3.5 h-3.5 text-emerald-700" />
               <span className="font-mono text-[11px] text-emerald-900">
-                Bhashini: {bhashiniStatus?.apiKeyPreview || '16f0...fb76'}
+                Bhashini: {bhashiniLabel}
               </span>
             </button>
 
@@ -415,6 +428,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               id="mobile-nav-toggle"
               type="button"
+              aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={mobileMenuOpen}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="lg:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100"
             >
@@ -602,13 +617,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className="text-slate-400">Pipeline Status:</span>
                 <span className="text-emerald-400 font-bold flex items-center gap-1">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  ACTIVE &amp; CONNECTED
+                  {bhashiniStatus?.configured ? 'ACTIVE &amp; CONNECTED' : 'DEMO FALLBACK'}
                 </span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-slate-400">Bhashini API Key:</span>
                 <span className="text-amber-300 font-bold">
-                  {bhashiniStatus?.apiKeyPreview || '16f036...fb76'}
+                  {bhashiniStatus?.configured ? 'Configured securely' : 'Not configured'}
                 </span>
               </div>
               <div className="flex items-center justify-between">
