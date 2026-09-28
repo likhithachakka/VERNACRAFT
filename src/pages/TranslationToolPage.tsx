@@ -63,7 +63,11 @@ export const TranslationToolPage: React.FC = () => {
     try {
       const status = await ApiService.getBhashiniStatus();
       setBhashiniStatus(status);
-      setBhashiniFeedback('Bhashini AI API key 16f0...fb76 verified active & connected to ULCA pipeline!');
+      setBhashiniFeedback(
+        status.configured
+          ? 'Bhashini AI securely configured and connected to the translation pipeline!'
+          : 'Bhashini AI is using the built-in pedagogical fallback until a server key is configured.'
+      );
       setTimeout(() => setBhashiniFeedback(null), 4000);
     } catch {
       setBhashiniFeedback('Bhashini AI pipeline active with fallback bridge.');
@@ -197,7 +201,7 @@ export const TranslationToolPage: React.FC = () => {
                   </span>
                 </div>
                 <p className="text-[11px] font-mono text-slate-300">
-                  Key: {bhashiniStatus?.apiKeyPreview || '16f036...fb76'}
+                  Status: {bhashiniStatus?.configured ? 'Configured securely' : 'Demo fallback'}
                 </p>
               </div>
             </div>
