@@ -29,7 +29,7 @@ export const ClassroomPage: React.FC<ClassroomPageProps> = ({
   const [activeLesson, setActiveLesson] = useState<Lesson>(DEMO_WATER_CYCLE_LESSON);
   const [activeLanguage, setActiveLanguage] = useState('hi');
   const [isWideScreenMode, setIsWideScreenMode] = useState(false);
-  const [bhashiniActive, setBhashiniActive] = useState(true);
+  const [bhashiniActive, setBhashiniActive] = useState(false);
 
   useEffect(() => {
     async function load() {
@@ -45,7 +45,7 @@ export const ClassroomPage: React.FC<ClassroomPageProps> = ({
       }
       try {
         const bStatus = await ApiService.getBhashiniStatus();
-        if (bStatus?.configured) setBhashiniActive(true);
+        setBhashiniActive(Boolean(bStatus?.configured));
       } catch (_) {}
     }
     load();
@@ -81,7 +81,7 @@ export const ClassroomPage: React.FC<ClassroomPageProps> = ({
                 className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-emerald-800/80 text-[11px] text-emerald-400 font-mono shadow-xs"
               >
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>Bhashini AI: 16f0...fb76</span>
+                <span>Bhashini AI: securely configured</span>
               </div>
             )}
 
