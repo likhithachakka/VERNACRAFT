@@ -1,0 +1,175 @@
+import { CurriculumNode } from '../types';
+
+export const CURRICULUM_DATA: CurriculumNode[] = [
+  {
+    id: 'jac-evs-g4-water-cycle',
+    grade: 4,
+    subject: 'Environmental Studies (EVS)',
+    chapter: 'Chapter 7: Jal Hai Toh Kal Hai (Water is Life)',
+    topic: 'Water Cycle (जल चक्र)',
+    board: 'Jharkhand Academic Council (JAC) / JCERT & NCERT',
+    learningObjectives: [
+      'Understand how the sun heats water bodies to cause evaporation (वाष्पीकरण / ᱫᱟᱜ ᱦᱟᱹᱣᱟᱹᱜ)',
+      'Observe how rising water vapor cools and condenses into clouds (संघनन)',
+      'Recognize precipitation as rain replenishing Jharkhand rivers like Damodar and Subarnarekha (वर्षा)',
+      'Identify water collection in ponds (पोखर/Bandh) and underground aquifers',
+    ],
+    keyConcepts: [
+      'Evaporation (वाष्पीकरण)',
+      'Condensation (संघनन)',
+      'Precipitation (वर्षा)',
+      'Collection (संग्रहण)',
+      'Transpiration from Sal & Mahua trees',
+    ],
+    standardVocabulary: [
+      {
+        term: 'Evaporation',
+        definition: 'The process where liquid water turns into invisible vapor due to heat.',
+        vernacularTranslations: {
+          hi: 'वाष्पीकरण (पानी का भाप बनना)',
+          sat: 'ᱫᱟᱜ ᱦᱟᱹᱣᱟᱹᱜ (Dak hawag)',
+          te: 'బాష్పీభవనం (Baashpeebhavanam)',
+          unr: 'ᱫᱟᱜ ᱫᱷᱩᱸᱣᱟᱹ (Dak dhuwa)',
+          hoc: 'ᱫᱟᱜ ᱩᱨᱩᱝ (Dak urung)',
+          kru: 'अम कुहा (Am kuha)',
+        },
+      },
+      {
+        term: 'Condensation',
+        definition: 'Warm vapor cooling down high in the air to form floating droplets called clouds.',
+        vernacularTranslations: {
+          hi: 'संघनन (भाप से बादल बनना)',
+          sat: 'ᱨᱤᱢᱤᱞ ᱵᱮᱱᱟᱣ (Rimil benao - Cloud making)',
+          te: 'సాంద్రీకరణం (Saandreekaranam)',
+          unr: 'ᱨᱤᱢᱤᱞ ᱛᱮᱭᱟᱨ (Rimil teyar)',
+          hoc: 'ᱨᱤᱢᱤᱞ ᱵᱟᱭ (Rimil bai)',
+          kru: 'बादिल बन्ना (Badil banna)',
+        },
+      },
+      {
+        term: 'Precipitation',
+        definition: 'When clouds become heavy and water droplets fall back to the ground as rain.',
+        vernacularTranslations: {
+          hi: 'वर्षा / बारिश (पानी बरसना)',
+          sat: 'ᱫᱟᱜ ᱡᱟᱹᱲᱤ (Dak jari - Rain shower)',
+          te: 'వర్షపాతం (Varshapaatam)',
+          unr: 'ᱫᱟᱜ ᱜᱟᱢᱟ (Dak gama)',
+          hoc: 'ᱫᱟᱜ ᱜᱟᱢ (Dak gam)',
+          kru: 'झड़ी / बरखा (Jhari / Barkha)',
+        },
+      },
+      {
+        term: 'Collection',
+        definition: 'Rainwater gathering in rivers, ponds (pokhar), wells, and deep underground.',
+        vernacularTranslations: {
+          hi: 'संग्रहण (पोखर और नदियों में पानी जमा होना)',
+          sat: 'ᱫᱟᱜ ᱡᱟᱣᱨᱟ (Dak jawra)',
+          te: 'సేకరణ (Sekarana)',
+          unr: 'ᱫᱟᱜ ᱦᱩᱸᱰᱤ (Dak hundi)',
+          hoc: 'ᱫᱟᱜ ᱡᱟᱣᱨᱟ (Dak jawra)',
+          kru: 'अम जमा (Am jama)',
+        },
+      },
+    ],
+  },
+  {
+    id: 'jac-sci-g3-plants',
+    grade: 3,
+    subject: 'Science',
+    chapter: 'Chapter 2: Humare Aas-Paas Ke Paudhe (Plants Around Us)',
+    topic: 'How Plants Grow & Make Food (पौधों का पोषण)',
+    board: 'JCERT Class 3',
+    learningObjectives: [
+      'Identify roots, stem, leaves, flowers, and fruits',
+      'Understand how green leaves act as kitchen of the plant using sunlight, water, and air',
+      'Value local tribal flora: Sal, Mahua, Palas, and Neem trees',
+    ],
+    keyConcepts: [
+      'Roots absorb water from soil',
+      'Leaves make food using sunlight',
+      'Flowers turn into fruits with seeds',
+    ],
+    standardVocabulary: [
+      {
+        term: 'Roots',
+        definition: 'Parts that anchor the plant and drink water from the soil.',
+        vernacularTranslations: {
+          hi: 'जड़ (मिट्टी से पानी खींचने वाली)',
+          sat: 'ᱨᱮᱦᱮᱫ (Rehed)',
+          te: 'వేర్లు (Verlu)',
+          unr: 'ᱨᱮᱦᱮᱫ (Rehed)',
+          hoc: 'ᱨᱮᱦᱮᱫ (Rehed)',
+          kru: 'पाका / चोड़ (Paka / Chod)',
+        },
+      },
+      {
+        term: 'Photosynthesis',
+        definition: 'How green leaves cook delicious sweet food for the plant under sunshine.',
+        vernacularTranslations: {
+          hi: 'प्रकाश संश्लेषण (धूप से खाना बनाना)',
+          sat: 'ᱥᱤᱸᱜᱤ ᱛᱮ ᱡᱚᱢᱟᱜ ᱛᱮᱭᱟᱨ (Singi te jomag teyar)',
+          te: 'కిరణజన్య సంయోగక్రియ',
+          unr: 'ᱵᱮᱲᱟ ᱛᱮ ᱢᱟᱸᱰᱤ ᱵᱟᱭ (Bera te mandi bai)',
+          hoc: 'ᱥᱤᱸᱜᱤ ᱛᱮ ᱡᱚᱢ (Singi te jom)',
+          kru: 'बिड़ी ति मंडी बन्ना (Biri ti mandi banna)',
+        },
+      },
+    ],
+  },
+  {
+    id: 'jac-math-g4-fractions',
+    grade: 4,
+    subject: 'Mathematics',
+    chapter: 'Chapter 5: Hissa Aur Batwara (Parts and Wholes)',
+    topic: 'Fractions using Roti, Guava & Daily Objects (भिन्न)',
+    board: 'JCERT Class 4',
+    learningObjectives: [
+      'Understand a fraction as equal sharing of a whole object',
+      'Visualize 1/2 (half), 1/4 (quarter), and 3/4 with village rotis and pizzas',
+      'Identify Numerator (hissa) and Denominator (kul hisse)',
+    ],
+    keyConcepts: ['Whole vs Equal Parts', 'Half (1/2)', 'Quarter (1/4)', 'Numerator & Denominator'],
+    standardVocabulary: [
+      {
+        term: 'Fraction',
+        definition: 'An equal part of a whole thing.',
+        vernacularTranslations: {
+          hi: 'भिन्न (बराबर टुकड़ा या हिस्सा)',
+          sat: 'ᱦᱟᱹᱴᱤᱧ (Hating - Sharing/portion)',
+          te: 'భిన్నం (Bhinnam)',
+          unr: 'ᱦᱟᱴᱟᱬ (Hatan)',
+          hoc: 'ᱦᱟᱹᱴᱤᱧ (Hating)',
+          kru: 'बांटना / हिस्सा (Bantna)',
+        },
+      },
+    ],
+  },
+  {
+    id: 'jac-sci-g5-digestive',
+    grade: 5,
+    subject: 'Science',
+    chapter: 'Chapter 3: Chakhne Se Pachne Tak (Tasting to Digesting)',
+    topic: 'Human Digestive System (पाचन तंत्र)',
+    board: 'JCERT Class 5',
+    learningObjectives: [
+      'Trace path of food: Mouth -> Food Pipe -> Stomach -> Intestines',
+      'Understand chewing with saliva (lar) simplifies food',
+      'Recognize wholesome traditional foods: Madua (Ragi), Rice, Green saag',
+    ],
+    keyConcepts: ['Chewing and Saliva', 'Stomach acids break food', 'Small intestine absorbs energy'],
+    standardVocabulary: [
+      {
+        term: 'Digestion',
+        definition: 'Breaking food into tiny energy particles for the body.',
+        vernacularTranslations: {
+          hi: 'पाचन (भोजन का पचना और ताकत बनना)',
+          sat: 'ᱡᱚᱢᱟᱜ ᱦᱚᱡᱚᱢ (Jomag hojom)',
+          te: 'జీర్ణక్రియ (Jeernakriya)',
+          unr: 'ᱡᱚᱢ ᱦᱚᱡᱚᱢ (Jom hojom)',
+          hoc: 'ᱡᱚᱢ ᱦᱚᱡᱚᱢ (Jom hojom)',
+          kru: 'मंडी हजम (Mandi hajam)',
+        },
+      },
+    ],
+  },
+];

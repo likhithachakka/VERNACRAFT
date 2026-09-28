@@ -1,0 +1,6 @@
+{
+  "name": "Vernacraft",
+  "description": "AI-Powered Vernacular Pedagogy & Real-Time Translation Platform for Mother Tongue-Based Primary Education",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
