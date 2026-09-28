@@ -125,7 +125,10 @@ app.post('/api/ai/tutor', async (req, res) => {
       language,
       confusionLevel: Number(confusionLevel),
     });
-    res.json(tutorResponse);
+    res.json({
+      ...tutorResponse,
+      message: tutorResponse.tutorSpeech,
+    });
   } catch (err: any) {
     console.error('Error in tutor chat:', err);
     res.status(500).json({ error: err.message || 'Tutor error' });
@@ -150,7 +153,6 @@ app.post('/api/ai/translate', async (req, res) => {
       ...translated,
       bhashini: {
         active: bhashiniStatus.configured,
-        apiKeyPreview: bhashiniStatus.apiKeyPreview,
         service: bhashiniStatus.service,
       },
     });
