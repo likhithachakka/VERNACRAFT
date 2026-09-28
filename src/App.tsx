@@ -18,20 +18,85 @@ import { UserRole, Lesson } from './types';
 import { DEMO_WATER_CYCLE_LESSON } from './data/demoData';
 import { Sparkles, Globe2, Heart, Bot } from 'lucide-react';
 import { OfflineIndicator } from './components/OfflineIndicator';
+import { MobileBottomNav } from './components/MobileBottomNav';
+
+const VALID_PATHS = new Set([
+  '/',
+  '/how-it-works',
+  '/demo',
+  '/teacher',
+  '/teacher/create-lesson',
+  '/teacher/classroom',
+  '/teacher/worksheets',
+  '/teacher/analytics',
+  '/student',
+  '/student/progress',
+  '/student/tutor',
+  '/student/quiz',
+  '/student/achievements',
+  '/animate',
+  '/translate',
+]);
+
+const PAGE_TITLES: Record<string, string> = {
+  '/': 'VERNACRAFT — Learn in Your Mother Tongue',
+  '/how-it-works': 'How VERNACRAFT Works',
+  '/demo': 'SIH Demo Walkthrough',
+  '/teacher': 'Teacher Desk',
+  '/teacher/create-lesson': 'Create an AI Lesson',
+  '/teacher/classroom': 'Live Classroom',
+  '/teacher/worksheets': 'Bilingual Worksheets',
+  '/teacher/analytics': 'Class Analytics',
+  '/student': 'My Lessons',
+  '/student/progress': 'My Progress',
+  '/student/tutor': 'Sathi AI Tutor',
+  '/student/quiz': 'Adaptive Quiz',
+  '/student/achievements': 'Badges & Achievements',
+  '/animate': 'Auto-Animate Lesson',
+  '/translate': 'Translation Lab',
+};
+
+const getInitialPath = () => {
+  const path = window.location.pathname.replace(/\/+$/, '') || '/';
+  return VALID_PATHS.has(path) ? path : '/';
+};
 
 export default function App() {
-  const [currentPath, setCurrentPath] = useState<string>('/');
+  const [currentPath, setCurrentPath] = useState<string>(getInitialPath);
   const [currentRole, setCurrentRole] = useState<UserRole>('student');
   const [currentLanguage, setCurrentLanguage] = useState<string>('hi');
   const [selectedLessonId, setSelectedLessonId] = useState<string>(DEMO_WATER_CYCLE_LESSON.id);
 
-  // Scroll to top on navigation
+  // Keep browser refresh/back/forward useful for a single-page demo.
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const handlePopState = () => {
+      const path = window.location.pathname.replace(/\/+$/, '') || '/';
+      setCurrentPath(VALID_PATHS.has(path) ? path : '/');
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    document.title = `${PAGE_TITLES[currentPath] ?? 'VERNACRAFT'} | SIH 2026`;
   }, [currentPath]);
 
   const handleNavigate = (path: string) => {
+    if (path === currentPath) return;
+    window.history.pushState({}, '', path);
     setCurrentPath(path);
+  };
+
+  const handleRoleChange = (role: UserRole) => {
+    setCurrentRole(role);
+
+    if (role === 'teacher' && currentPath.startsWith('/student')) {
+      handleNavigate('/teacher');
+    } else if (role === 'student' && currentPath.startsWith('/teacher')) {
+      handleNavigate('/student');
+    }
   };
 
   const handleLessonCreated = (newLesson: Lesson) => {
@@ -119,10 +184,17 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans selection:bg-emerald-200 selection:text-emerald-900">
+      <a
+        href="#main-content"
+        className="sr-only z-[60] rounded-lg bg-slate-900 px-4 py-2 text-sm font-bold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+      >
+        Skip to main content
+      </a>
+
       {/* Top Universal Navbar */}
       <Navbar
         currentRole={currentRole}
-        onRoleChange={setCurrentRole}
+        onRoleChange={handleRoleChange}
         currentPath={currentPath}
         onNavigate={handleNavigate}
         currentLanguage={currentLanguage}
@@ -130,11 +202,13 @@ export default function App() {
       />
 
       {/* Main Routed Page Content */}
-      <main className="flex-1">{renderCurrentView()}</main>
+      <main id="main-content" className="flex-1 pb-24 lg:pb-0">
+        {renderCurrentView()}
+      </main>
 
       {/* Floating Sathi Mascot Quick-Launcher (Visible on pages other than Tutor and Demo) */}
       {currentPath !== '/student/tutor' && currentPath !== '/demo' && (
-        <aside aria-label="Sathi AI Tutor launcher" className="fixed bottom-6 right-6 z-40">
+        <aside aria-label="Sathi AI Tutor launcher" className="fixed bottom-24 right-4 z-40 sm:bottom-6 sm:right-6">
           <button
             id="floating-sathi-quick-launch-btn"
             type="button"
@@ -145,6 +219,14 @@ export default function App() {
             <span className="hidden sm:inline">Ask Sathi AI</span>
           </button>
         </aside>
+      )}
+
+      {currentPath !== '/' && currentPath !== '/how-it-works' && currentPath !== '/demo' && (
+        <MobileBottomNav
+          currentRole={currentRole}
+          currentPath={currentPath}
+          onNavigate={handleNavigate}
+        />
       )}
 
       {/* Footer */}
