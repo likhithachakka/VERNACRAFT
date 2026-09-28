@@ -24,7 +24,6 @@ export interface BhashiniTranslationResult {
 }
 
 export class BhashiniService {
-  private static readonly DEFAULT_KEY = '16f036b3b1-cb7f-41ef-886b-3ae5e10bfb76';
   private static readonly PIPELINE_CONFIG_URL =
     'https://meity-auth.ulcacontrib.org/ulca/apis/v0/model/getModelsPipeline';
   private static readonly INFERENCE_URL =
@@ -35,7 +34,7 @@ export class BhashiniService {
     if (key && key !== 'MY_BHASHINI_API_KEY' && key.length > 5) {
       return key;
     }
-    return this.DEFAULT_KEY;
+    return '';
   }
 
   public static isConfigured(): boolean {
@@ -44,15 +43,10 @@ export class BhashiniService {
   }
 
   public static getStatus() {
-    const key = this.getApiKey();
-    const maskedKey =
-      key.length > 8 ? `${key.substring(0, 6)}...${key.substring(key.length - 4)}` : 'Configured';
-
     return {
-      status: 'active',
-      configured: true,
+      status: this.isConfigured() ? 'active' : 'fallback',
+      configured: this.isConfigured(),
       service: 'Bhashini AI (National Language Translation Mission - NLTM)',
-      apiKeyPreview: maskedKey,
       supportedLanguages: [
         { code: 'hi', name: 'Hindi', native: 'हिन्दी' },
         { code: 'sat', name: 'Santhali', native: 'ᱥᱟᱱᱛᱟᱲᱤ (Ol Chiki)' },
@@ -87,6 +81,10 @@ export class BhashiniService {
   }): Promise<BhashiniTranslationResult> {
     const { text, sourceLang = 'en', targetLang = 'hi', gradeLevel = 4 } = params;
     const apiKey = this.getApiKey();
+
+    if (!this.isConfigured()) {
+      return this.generateResilientPedagogicalTranslation(text, sourceLang, targetLang, gradeLevel);
+    }
 
     // Map common app language codes to Bhashini standard codes
     const mapLang = (code: string) => {
@@ -246,9 +244,9 @@ export class BhashiniService {
       sourceLang,
       targetLang,
       provider: 'bhashini-gemini-bridge',
-      apiKeyConfigured: true,
+      apiKeyConfigured: this.isConfigured(),
       modelDetails: {
-        modelName: 'Bhashini AI Model Pipeline (Key: 16f036...fb76)',
+        modelName: 'Vernacraft Pedagogical Bridge',
       },
       phoneticGuide:
         targetLang === 'sat'
@@ -293,7 +291,6 @@ export class BhashiniService {
     language: string;
   }) {
     const { text, language = 'hi' } = params;
-    const apiKey = this.getApiKey();
 
     const romanizedGuide =
       language === 'sat'
@@ -308,7 +305,6 @@ export class BhashiniService {
       success: true,
       text,
       language,
-      apiKeyPreview: `${apiKey.substring(0, 6)}...${apiKey.substring(apiKey.length - 4)}`,
       engine: 'Bhashini AI NLTM TTS & Phonetic Engine',
       phonetics: romanizedGuide,
       recommendedSpeechRate: 0.9,
@@ -350,8 +346,7 @@ export class BhashiniService {
       query,
       language,
       gradeLevel,
-      bhashiniVerified: true,
-      apiKeyUsed: '16f0...fb76',
+      bhashiniVerified: this.isConfigured(),
       analogy,
       simplifiedExplanation: vernacularExplanation,
       localContextNote: 'Grounded in NEP 2020 mother tongue pedagogy guidelines.',
