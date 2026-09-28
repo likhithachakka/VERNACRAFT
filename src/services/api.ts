@@ -395,9 +395,8 @@ export class ApiService {
     if (this.isOffline()) {
       return {
         status: 'cached',
-        configured: true,
+        configured: false,
         service: 'Bhashini AI (National Language Translation Mission - NLTM)',
-        apiKeyPreview: '16f036...fb76',
         supportedLanguages: [],
         capabilities: ['Vernacular Translation', 'Offline Dictionary Fallback'],
       };
@@ -408,10 +407,9 @@ export class ApiService {
       return await res.json();
     } catch {
       return {
-        status: 'active',
-        configured: true,
+        status: 'fallback',
+        configured: false,
         service: 'Bhashini AI (National Language Translation Mission)',
-        apiKeyPreview: '16f036...fb76',
         supportedLanguages: [],
       };
     }
