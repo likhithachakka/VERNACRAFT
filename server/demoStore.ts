@@ -78,6 +78,7 @@ class Store {
       totalStudents: 34,
       activeToday: 28,
       averageMastery: 76.5,
+      classAverage: 76.5,
       completedLessonsCount: 89,
       vernacularEngagement: {
         Hindi: 42,
