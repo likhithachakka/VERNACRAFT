@@ -50,8 +50,15 @@ export const AITutorPage: React.FC = () => {
   const [playingMessageIndex, setPlayingMessageIndex] = useState<number | null>(null);
   const [isLiveVoiceOpen, setIsLiveVoiceOpen] = useState(false);
   const [isTranscriberOpen, setIsTranscriberOpen] = useState(false);
+  const [bhashiniConfigured, setBhashiniConfigured] = useState(false);
 
   const activeLangObj = getLanguage(activeLanguage);
+
+  useEffect(() => {
+    ApiService.getBhashiniStatus()
+      .then((status) => setBhashiniConfigured(Boolean(status?.configured)))
+      .catch(() => setBhashiniConfigured(false));
+  }, []);
 
   const samplePrompts = [
     'Why does wet clothes dry on the wire in the sun?',
@@ -180,7 +187,7 @@ export const AITutorPage: React.FC = () => {
               <span>Voice &amp; Mother-Tongue Companion</span>
               <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-mono font-bold flex items-center gap-1 border border-emerald-300">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                Bhashini AI NLTM: 16f0...fb76
+                Bhashini AI NLTM: {bhashiniConfigured ? 'securely configured' : 'demo fallback'}
               </span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-black text-slate-900">
